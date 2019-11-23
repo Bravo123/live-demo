@@ -1,0 +1,10 @@
+**/*.md
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.svg
+**/*.ejs
+**/*.html
+package.json
+.umi
+.umi-production
