@@ -36,5 +36,6 @@ module.exports = {
     wx: true,
     ROP: true,
     md5: true,
+    mojs: true,
   },
 };

@@ -10,9 +10,8 @@
       webkit-playsinline="true"
       playsinline="true"
       preload
-      controls
     />
-    <div class="cover" @click.stop="showVideo" @dblclick.stop="dbclickCb"></div>
+    <div class="cover" @click.stop="showVideo"></div>
     <scroll
       @pullup="loadMoreGoods"
       :probeType="2"
@@ -41,7 +40,7 @@
     </scroll>
     <videoGood
       v-if="isShowVideoGood"
-      @showGoodInfo="showGoodsInfo"
+      @showGoodInfo="showGoodsInfo(videoGoodObj)"
       @close="closeGood"
       :good="videoGoodObj"
     />
@@ -89,27 +88,28 @@
           :key="type"
           @click.stop="chooseType(type)"
         >{{type}}</span>
-      </div>
-    </div> -->
+      </div> -->
+    </div>
 
     <!-- 点赞 -->
-    <div v-for="(love, index) in loveList" :key="index">
+    <!-- <div v-for="(love, index) in loveList" :key="index">
       <love :event="love" />
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
+import '../../lib/star.js';
 import { connectLive } from '../../lib/connectLive';
 import scroll from '../../components/scroll/';
 import VideoGood from '../../components/video-good.vue';
-import love from '../../components/love.vue';
+// import love from '../../components/love.vue';
 export default {
   name: 'index',
   components: {
     scroll,
     VideoGood,
-    love,
+    // love,
   },
   data() {
     return {
@@ -187,17 +187,17 @@ export default {
       // }/playlist.m3u8`;
       this.isShowSelectType = false;
     },
-    dbclickCb(e) {
-      console.log(e, 'dbclickCb');
-      // TODO 出现小红心
-      this.loveList.push({
-        x: e.clientX,
-        y: e.clientY,
-      });
-      setTimeout(() => {
-        this.loveList.shift();
-      }, 500);
-    },
+    // dbclickCb(e) {
+    //   console.log(e, 'dbclickCb');
+    //   // TODO 出现小红心
+    //   this.loveList.push({
+    //     x: e.clientX,
+    //     y: e.clientY,
+    //   });
+    //   setTimeout(() => {
+    //     this.loveList.shift();
+    //   }, 500);
+    // },
     closeGood() {
       this.isShowVideoGood = false;
     },
@@ -242,8 +242,9 @@ export default {
       this.inputEle.blur();
       this.$toast('发送成功');
     },
-    showGoodsInfo() {
-      window.location.href = `http://m.laiyifen.com/detail.html?itemId=${this.videoGoodObj.id}`;
+    showGoodsInfo(item) {
+      console.log(item);
+      window.location.href = `http://m.laiyifen.com/detail.html?itemId=${item.id}`;
     },
     getMessage() {
       ROP.Subscribe('99999');
